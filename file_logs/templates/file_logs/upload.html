@@ -1,0 +1,21 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+    <div class="content-section">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Upload File</legend>
+                {{ form}}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Upload File</button>
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Upload excel file. File must contain the fillowing columns firstname, lastname, age, gender and address.
+            </small>
+        </div>
+    </div>
+{% endblock content %}

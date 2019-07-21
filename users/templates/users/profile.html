@@ -1,0 +1,47 @@
+{% extends "main/base.html" %}
+{% block content %}
+
+<p>Hello {{ user.username }}</p>
+<p>Below are a list of your upload files By date</p>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>File Name</th>
+      <th>Uploaded At</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for file in files %}
+      <tr>
+        <td>{{ file.user }}</td>
+        <td>{{ file.file_name }}</td>
+        <td>{{ file.uploaded_at }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% if files.has_other_pages %}
+  <ul class="pagination">
+    {% if files.has_previous %}
+      <li><a href="?page={{ files.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in files.paginator.page_range %}
+      {% if files.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if files.has_next %}
+      <li><a href="?page={{ files.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+{% endblock content %}

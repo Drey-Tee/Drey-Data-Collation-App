@@ -1,0 +1,52 @@
+{% extends "main/base.html" %}
+{% block content %}
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Uploaded By</th>
+      <th>File Name</th>
+      <th>First Name </th>
+      <th>Last Name </th>
+      <th>Age</th>
+      <th>Gender</th>
+      <th>Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in alldata %}
+      <tr>
+        <td>{{ row.user }}</td>
+        <td>{{ row.file.file_name}}</td>
+        <td>{{ row.firstname}}</td>
+        <td>{{ row.lastname }}</td>
+        <td>{{ row.age }}</td>
+        <td>{{ row.gender }}</td>
+        <td>{{ row.address }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% if alldata.has_other_pages %}
+  <ul class="pagination">
+    {% if alldata.has_previous %}
+      <li><a href="?page={{ alldata.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in alldata.paginator.page_range %}
+      {% if alldata.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if alldata.has_next %}
+      <li><a href="?page={{ alldata.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+{% endblock content %}
